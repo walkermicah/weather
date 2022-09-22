@@ -167,7 +167,7 @@ body {
 }
 
 // ERROR PAGE
-.error-page {
+.error {
   @include layout;
 
   &-notification {
@@ -187,7 +187,7 @@ body {
 }
 
 // LOADER PAGE
-.loader-page {
+.loader {
   @include layout;
 
   &-gif {
@@ -197,7 +197,16 @@ body {
   }
 }
 
-// CLASS SETTINGS
+// CLASSES TO CHANGE BACKGROUND IMAGE
+.background {
+  background-image: url('../src/img/background.jpg');
+}
+
+.clear-day {
+  background-image: url('../src/img/clear-day.jpg');
+}
+
+// CLASS TO HIDE ELEMENTS
 .invisible {
   opacity: 0;
   pointer-events: none;
