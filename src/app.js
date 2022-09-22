@@ -1,4 +1,5 @@
 import './style.scss';
+import * as UI from './UI';
 
 const searchForm = document.querySelector('.search-form');
 const searchInput = document.querySelector('.search-form-input');
@@ -58,15 +59,18 @@ const weatherSearch = async (e) => {
   const city = searchInput.value;
   const weatherData = await getWeatherByCity(city);
   console.log(weatherData);
+  UI.displayWeather();
   searchForm.reset();
 };
 
 // Initialize the app:
 // Get user coordinates, get weather data for user's location, show weather data and activate search function
 const init = async () => {
+  UI.showLoader();
   const coords = await getCoords().catch((err) => console.log(err));
   const weatherData = await getWeatherByCoords(coords);
   console.log(weatherData);
+  UI.displayWeather();
   searchBtn.addEventListener('click', weatherSearch);
 };
 
