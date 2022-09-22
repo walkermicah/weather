@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>WeatherApp</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <div class="container">
+      <div class="app">
+        <div class="nav">
+            <div class="time">
+                12:30 PM
+            </div>
+
+          <form class="search-form" novalidate>
+            <label for="city" class="search-form-label">
+              <input
+                type="text"
+                class="search-form-input"
+                id="city"
+                placeholder="Enter a city"
+                required
+              />
+              <span
+                class="error"
+                id="search-form-field-alert"
+                aria-live="polite"
+              ></span>
+            </label>
+            <button class="search-form-btn">
+              <img
+                src="img/search.svg"
+                alt="search icon"
+                class="search-form-icon"
+              />
+            </button>
+          </form>
+
+          <div class="temp-conversion">
+            <span class="temp-conversion-c temp-conversion-active">&#8451</span>
+            <span class="temp-conversion-divider">/</span>
+            <span class="temp-conversion-f">&#8457</span>
+          </div>
+        </div>
+
+        <div class="weather">
+          <div class="weather-overview">
+            <div class="weather-overview-location">TORONTO</div>
+            <div class="weather-overview-temp">25&#8451</div>
+            <div class="weather-overview-description">CLEAR SKIES</div>
+          </div>
+        
+          <div class="weather-details">
+            <div class="weather-details-item">
+                <div class="weather-details-item-temp low-temp">15&#8451</div>
+                <div class="weather-details-item-title">LOW</div>
+            </div>
+            <div class="weather-details-item">
+                <div class="weather-details-item-temp high-temp">28&#8451</div>
+                <div class="weather-details-item-title">HIGH</div>
+            </div>
+            <div class="weather-details-item">
+                <div class="weather-details-item-temp feelslike-temp">27&#8451</div>
+                <div class="weather-details-item-title">FEELS LIKE</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="error-page hidden">
+            <div class="error-page-notification">
+                <img src="img/location-error.svg" alt="location error" class="error-page-notification-icon">
+                <p class="error-page-notification-text">Could not get your location. <br>Try searching for a city.</p>
+            </div>
+        </div>
+
+        <div class="loader-page hidden">
+            <img src="img/loader-2.gif" alt="loading" class="loader-page-gif">
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
