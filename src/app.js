@@ -1,9 +1,11 @@
 import './style.scss';
 import * as UI from './UI';
+import * as util from './util';
 
+const searchBtn = document.querySelector('.search-form-btn');
 const searchForm = document.querySelector('.search-form');
 const searchInput = document.querySelector('.search-form-input');
-const searchBtn = document.querySelector('.search-form-btn');
+const tempConversion = document.querySelector('.temp-conversion');
 
 // Get weather data from location entered in search
 const getWeatherByCity = async (city) => {
@@ -15,7 +17,7 @@ const getWeatherByCity = async (city) => {
     const weatherData = await response.json();
     return weatherData;
   } catch (err) {
-    UI.displayError(
+    UI.displayErrorScreen(
       `Could not find weather data for "${city}." Try searching again.`
     );
   }
@@ -28,12 +30,12 @@ const weatherSearch = async (e) => {
   const city = searchInput.value;
   const weatherData = await getWeatherByCity(city);
   if (weatherData.cod === '404') {
-    UI.displayError(
+    UI.displayErrorScreen(
       `Could not find weather data for "${city}." Try searching again.`
     );
   } else {
     console.log(weatherData);
-    UI.displayWeather();
+    UI.displayWeatherScreen(weatherData);
   }
   searchForm.reset();
 };
@@ -61,7 +63,7 @@ const getWeatherByCoords = async (coords) => {
     const weatherData = await response.json();
     return weatherData;
   } catch (err) {
-    UI.displayError(
+    UI.displayErrorScreen(
       'Could not get weather data for your location.\nTry searching for a city.'
     );
   }
@@ -69,37 +71,27 @@ const getWeatherByCoords = async (coords) => {
 
 // Initialize the app:
 // Get user coordinates, get weather data for user's location, show weather data and activate search function
-
 const init = async () => {
   UI.showLoader();
   const coords = await getCoords().catch((err) => {
-    UI.displayError(err);
+    UI.displayErrorScreen(err);
   });
   if (coords) {
     const weatherData = await getWeatherByCoords(coords);
     if (weatherData) {
-      console.log(weatherData);
-      UI.displayWeather();
+      UI.displayWeatherScreen(weatherData);
     }
   }
   searchBtn.addEventListener('click', weatherSearch);
+  tempConversion.addEventListener('click', (e) => {
+    util.convertTemp(e);
+  });
 };
 
-// const init = async () => {
-//   UI.showLoader();
-//   const coords = await getCoords().catch((err) => {
-//     UI.displayError(err);
-//     searchBtn.addEventListener('click', weatherSearch);
-//   });
-//   if (!coords) return;
-//   const weatherData = await getWeatherByCoords(coords);
-//   if (!weatherData) {
-//     searchBtn.addEventListener('click', weatherSearch);
-//     return;
-//   }
-//   console.log(weatherData);
-//   UI.displayWeather();
-//   searchBtn.addEventListener('click', weatherSearch);
-// };
-
 init();
+
+// const ts = ['59.', '57.', '62.', '57.'];
+// const tsMap = ts.map((t) =>
+//   Math.floor((Number(t.slice(0, -1)) - 32) * (5 / 9))
+// );
+// console.log(tsMap);
