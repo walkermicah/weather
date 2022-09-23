@@ -1,6 +1,6 @@
-const app = document.querySelector('.app');
 const weather = document.querySelector('.weather');
 const error = document.querySelector('.error');
+const errorText = document.querySelector('.error-notification-text');
 const loader = document.querySelector('.loader');
 const time = document.querySelector('.time');
 const search = document.querySelector('.search-form');
@@ -14,7 +14,6 @@ const displayWeather = () => {
   search.classList.remove('invisible');
   tempConversion.classList.remove('invisible');
   time.classList.remove('invisible');
-  app.classList.add('clear-day');
 };
 
 // Show loader while waiting for location and weather data
@@ -25,18 +24,18 @@ const showLoader = () => {
   search.classList.add('invisible');
   tempConversion.classList.add('invisible');
   time.classList.add('invisible');
-  app.classList.add('background');
 };
 
 // Display errors
-const displayError = () => {
+const displayError = (err) => {
   error.classList.remove('hidden');
   loader.classList.add('hidden');
   weather.classList.add('hidden');
   search.classList.remove('invisible');
   tempConversion.classList.add('invisible');
   time.classList.add('invisible');
-  app.classList.add('background');
+
+  errorText.textContent = err;
 };
 
 export { displayWeather, displayError, showLoader };
