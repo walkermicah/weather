@@ -39,6 +39,7 @@ body {
   width: 40%;
   display: grid;
   grid-template-rows: 12rem 1fr;
+  justify-content: center;
   align-items: start;
   background-color: white;
   // background-image: url('../src/img/clear-day.jpg');
@@ -109,7 +110,7 @@ body {
   height: 2.5rem;
   width: 100%;
   font-size: 80%;
-  border-radius: 3px;
+  border-radius: 1.5rem;
   color: white;
   background-color: #900;
   display: flex;
@@ -232,4 +233,24 @@ body {
 
 .hidden {
   display: none;
+}
+
+// MEDIA QUERIES
+// 1050px
+@media only screen and (max-width: 65.625em) {
+  .container {
+    padding: 0rem;
+  }
+
+  .app {
+    width: 100%;
+    border-radius: 0;
+  }
+}
+
+// 400px
+@media only screen and (max-width: 25em) {
+  .html {
+    font-size: 50%;
+  }
 }
