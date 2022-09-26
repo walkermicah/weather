@@ -24,10 +24,11 @@ let active = 'c';
 
 // Add weather data to weather screen
 const showWeatherData = (weatherData) => {
-  console.log(weatherData);
+  // show city and weather description
   city.textContent = weatherData.name.toUpperCase();
   description.textContent = weatherData.weather[0].main.toUpperCase();
 
+  // show temperature in C or F
   if (active === 'c') {
     currentTemp.textContent = `${Math.round(weatherData.main.temp)}°`;
     highTemp.textContent = `${Math.round(weatherData.main.temp_max)}°`;
@@ -49,6 +50,17 @@ const showWeatherData = (weatherData) => {
       new Converter.Celsius(Number(weatherData.main.feels_like)).toFahrenheit()
     )}°`;
   }
+
+  console.log(weatherData);
+  // show local time
+  const localTime = weatherData.dt + weatherData.timezone;
+  const date = new Date(localTime * 1000);
+  time.textContent = date.toLocaleString('en-US', {
+    hour: 'numeric',
+    minute: 'numeric',
+    hour12: true,
+    timeZone: 'UTC',
+  });
 };
 
 // Show weather screen

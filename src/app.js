@@ -88,7 +88,6 @@ const init = async () => {
     }
   }
   searchBtn.addEventListener('click', weatherSearch);
-  // searchForm.addEventListener('submit', validateSearch);
   tempConversion.addEventListener('click', (e) => {
     UI.showConvertedTemps(e);
   });
