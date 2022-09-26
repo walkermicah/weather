@@ -1,6 +1,5 @@
 import './style.scss';
 import * as UI from './UI';
-import * as util from './util';
 
 const searchBtn = document.querySelector('.search-form-btn');
 const searchForm = document.querySelector('.search-form');
@@ -17,7 +16,7 @@ const getWeatherByCity = async (city) => {
     const weatherData = await response.json();
     return weatherData;
   } catch (err) {
-    UI.displayErrorScreen(
+    UI.showErrorScreen(
       `Could not find weather data for "${city}." Try searching again.`
     );
   }
@@ -30,12 +29,12 @@ const weatherSearch = async (e) => {
   const city = searchInput.value;
   const weatherData = await getWeatherByCity(city);
   if (weatherData.cod === '404') {
-    UI.displayErrorScreen(
+    UI.showErrorScreen(
       `Could not find weather data for "${city}." Try searching again.`
     );
   } else {
     console.log(weatherData);
-    UI.displayWeatherScreen(weatherData);
+    UI.showWeatherScreen(weatherData);
   }
   searchForm.reset();
 };
@@ -63,7 +62,7 @@ const getWeatherByCoords = async (coords) => {
     const weatherData = await response.json();
     return weatherData;
   } catch (err) {
-    UI.displayErrorScreen(
+    UI.showErrorScreen(
       'Could not get weather data for your location.\nTry searching for a city.'
     );
   }
@@ -74,24 +73,18 @@ const getWeatherByCoords = async (coords) => {
 const init = async () => {
   UI.showLoader();
   const coords = await getCoords().catch((err) => {
-    UI.displayErrorScreen(err);
+    UI.showErrorScreen(err);
   });
   if (coords) {
     const weatherData = await getWeatherByCoords(coords);
     if (weatherData) {
-      UI.displayWeatherScreen(weatherData);
+      UI.showWeatherScreen(weatherData);
     }
   }
   searchBtn.addEventListener('click', weatherSearch);
   tempConversion.addEventListener('click', (e) => {
-    util.convertTemp(e);
+    UI.showConvertedTemps(e);
   });
 };
 
 init();
-
-// const ts = ['59.', '57.', '62.', '57.'];
-// const tsMap = ts.map((t) =>
-//   Math.floor((Number(t.slice(0, -1)) - 32) * (5 / 9))
-// );
-// console.log(tsMap);

@@ -1,3 +1,5 @@
+import { convertToC, convertToF } from './util';
+
 const city = document.querySelector('.weather-overview-location');
 const currentTemp = document.querySelector('.weather-overview-temp');
 const description = document.querySelector('.weather-overview-description');
@@ -11,20 +13,44 @@ const search = document.querySelector('.search-form');
 const tempConversion = document.querySelector('.temp-conversion');
 const time = document.querySelector('.time');
 const weather = document.querySelector('.weather');
+const tempC = document.querySelector('.temp-conversion-c');
+const tempF = document.querySelector('.temp-conversion-f');
+
+const Converter = require('node-temperature-converter');
+
+let active = 'c';
 
 // Add weather data to weather screen
 const showWeatherData = (weatherData) => {
   console.log(weatherData);
   city.textContent = weatherData.name.toUpperCase();
   description.textContent = weatherData.weather[0].main.toUpperCase();
-  currentTemp.textContent = `${Math.floor(weatherData.main.temp)}°`;
-  highTemp.textContent = `${Math.floor(weatherData.main.temp_max)}°`;
-  lowTemp.textContent = `${Math.floor(weatherData.main.temp_min)}°`;
-  feelsLikeTemp.textContent = `${Math.floor(weatherData.main.feels_like)}°`;
+
+  if (active === 'c') {
+    currentTemp.textContent = `${Math.round(weatherData.main.temp)}°`;
+    highTemp.textContent = `${Math.round(weatherData.main.temp_max)}°`;
+    lowTemp.textContent = `${Math.round(weatherData.main.temp_min)}°`;
+    feelsLikeTemp.textContent = `${Math.round(weatherData.main.feels_like)}°`;
+  }
+
+  if (active === 'f') {
+    currentTemp.textContent = `${Math.round(
+      new Converter.Celsius(Number(weatherData.main.temp)).toFahrenheit()
+    )}°`;
+    highTemp.textContent = `${Math.round(
+      new Converter.Celsius(Number(weatherData.main.temp_max)).toFahrenheit()
+    )}°`;
+    lowTemp.textContent = `${Math.round(
+      new Converter.Celsius(Number(weatherData.main.temp_min)).toFahrenheit()
+    )}°`;
+    feelsLikeTemp.textContent = `${Math.round(
+      new Converter.Celsius(Number(weatherData.main.feels_like)).toFahrenheit()
+    )}°`;
+  }
 };
 
 // Show weather screen
-const displayWeatherScreen = (weatherData) => {
+const showWeatherScreen = (weatherData) => {
   weather.classList.remove('hidden');
   error.classList.add('hidden');
   loader.classList.add('hidden');
@@ -35,13 +61,34 @@ const displayWeatherScreen = (weatherData) => {
   showWeatherData(weatherData);
 };
 
-const displayConvertedTemps = (temps) => {
-  [
-    currentTemp.textContent,
-    feelsLikeTemp.textContent,
-    highTemp.textContent,
-    lowTemp.textContent,
-  ] = temps;
+const showConvertedTemps = (e) => {
+  const tempsToConvert = [currentTemp, feelsLikeTemp, highTemp, lowTemp];
+  // convert to C
+  if (e.target.classList.contains('temp-conversion-c') && active !== 'c') {
+    const convertedTemps = convertToC(tempsToConvert);
+    [
+      currentTemp.textContent,
+      feelsLikeTemp.textContent,
+      highTemp.textContent,
+      lowTemp.textContent,
+    ] = convertedTemps;
+    active = 'c';
+    tempC.classList.add('temp-conversion-active');
+    tempF.classList.remove('temp-conversion-active');
+  }
+  // convert to F
+  if (e.target.classList.contains('temp-conversion-f') && active !== 'f') {
+    const convertedTemps = convertToF(tempsToConvert);
+    [
+      currentTemp.textContent,
+      feelsLikeTemp.textContent,
+      highTemp.textContent,
+      lowTemp.textContent,
+    ] = convertedTemps;
+    active = 'f';
+    tempF.classList.add('temp-conversion-active');
+    tempC.classList.remove('temp-conversion-active');
+  }
 };
 
 // Show loader while waiting for location and weather data
@@ -55,7 +102,7 @@ const showLoader = () => {
 };
 
 // Display errors
-const displayErrorScreen = (err) => {
+const showErrorScreen = (err) => {
   error.classList.remove('hidden');
   loader.classList.add('hidden');
   weather.classList.add('hidden');
@@ -66,9 +113,4 @@ const displayErrorScreen = (err) => {
   errorText.textContent = err;
 };
 
-export {
-  displayConvertedTemps,
-  displayWeatherScreen,
-  displayErrorScreen,
-  showLoader,
-};
+export { showConvertedTemps, showWeatherScreen, showErrorScreen, showLoader };
