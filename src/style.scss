@@ -39,9 +39,8 @@ body {
   width: 40%;
   display: grid;
   grid-template-rows: 12rem 1fr;
-  justify-content: center;
   align-items: start;
-  background-color: white;
+  background-color: rgb(255, 255, 255);
   // background-image: url('../src/img/clear-day.jpg');
   background-size: cover;
   background-position: center;
@@ -236,8 +235,8 @@ body {
 }
 
 // MEDIA QUERIES
-// 1050px
-@media only screen and (max-width: 65.625em) {
+// 1000px
+@media only screen and (max-width: 62.5em) {
   .container {
     padding: 0rem;
   }
@@ -245,6 +244,7 @@ body {
   .app {
     width: 100%;
     border-radius: 0;
+    justify-content: center;
   }
 }
 
