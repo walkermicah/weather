@@ -1,6 +1,6 @@
 # weather
 
-☀️☔️🌈[Live deployment](https://walkermicah.github.io/weather/)
+☀️☔️🌈 [Live deployment](https://walkermicah.github.io/weather/)
 
 ## Project objectives
 
