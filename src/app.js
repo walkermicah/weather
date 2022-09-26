@@ -90,6 +90,7 @@ const init = async () => {
   searchBtn.addEventListener('click', weatherSearch);
   tempConversion.addEventListener('click', (e) => {
     UI.showConvertedTemps(e);
+    localStorage.setItem('active', e.target.id);
   });
 };
 

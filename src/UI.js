@@ -28,12 +28,19 @@ const showWeatherData = (weatherData) => {
   city.textContent = weatherData.name.toUpperCase();
   description.textContent = weatherData.weather[0].main.toUpperCase();
 
+  if (localStorage.active) {
+    active = localStorage.getItem('active');
+  }
+
   // show temperature in C or F
   if (active === 'c') {
     currentTemp.textContent = `${Math.round(weatherData.main.temp)}°`;
     highTemp.textContent = `${Math.round(weatherData.main.temp_max)}°`;
     lowTemp.textContent = `${Math.round(weatherData.main.temp_min)}°`;
     feelsLikeTemp.textContent = `${Math.round(weatherData.main.feels_like)}°`;
+
+    tempC.classList.add('temp-conversion-active');
+    tempF.classList.remove('temp-conversion-active');
   }
 
   if (active === 'f') {
@@ -49,9 +56,11 @@ const showWeatherData = (weatherData) => {
     feelsLikeTemp.textContent = `${Math.round(
       new Converter.Celsius(Number(weatherData.main.feels_like)).toFahrenheit()
     )}°`;
+
+    tempF.classList.add('temp-conversion-active');
+    tempC.classList.remove('temp-conversion-active');
   }
 
-  console.log(weatherData);
   // show local time
   const localTime = weatherData.dt + weatherData.timezone;
   const date = new Date(localTime * 1000);
