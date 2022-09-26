@@ -1,5 +1,6 @@
-import { convertToC, convertToF } from './util';
+import { convertToC, convertToF, isNight } from './util';
 
+const app = document.getElementById('app');
 const city = document.querySelector('.weather-overview-location');
 const currentTemp = document.querySelector('.weather-overview-temp');
 const description = document.querySelector('.weather-overview-description');
@@ -10,6 +11,7 @@ const feelsLikeTemp = document.querySelector('.feelslike-temp');
 const highTemp = document.querySelector('.high-temp');
 const loader = document.querySelector('.loader');
 const lowTemp = document.querySelector('.low-temp');
+const r = document.querySelector(':root');
 const search = document.querySelector('.search-form');
 const searchInput = document.querySelector('.search-form-input');
 const tempConversion = document.querySelector('.temp-conversion');
@@ -72,6 +74,49 @@ const showWeatherData = (weatherData) => {
   });
 };
 
+const changeColors = (color) => {
+  r.style.setProperty('--nav-color', color);
+  r.style.setProperty('--overview-color', color);
+  r.style.setProperty('--details-color', color);
+};
+
+const changeBackground = (weatherData) => {
+  const condition = weatherData.weather[0].main;
+  const night = isNight(weatherData.dt + weatherData.timezone);
+
+  if (condition === 'Clear' && !night) {
+    app.className = 'clear-day-bkg';
+    changeColors('black');
+  } else if (condition === 'Clear' && night) {
+    app.className = 'clear-night-bkg';
+    changeColors('white');
+  } else if (condition === 'Clouds' && !night) {
+    app.className = 'clouds-day-bkg';
+    changeColors('black');
+  } else if (condition === 'Clouds' && night) {
+    app.className = 'clouds-night-bkg';
+    changeColors('white');
+  } else if (condition === 'Fog' || condition === 'Mist') {
+    app.className = 'mist-bkg';
+    changeColors('black');
+  } else if (condition === 'Snow' && !night) {
+    app.className = 'snow-day-bkg';
+    changeColors('black');
+  } else if (condition === 'Snow' && night) {
+    app.className = 'snow-night-bkg';
+    changeColors('white');
+  } else if (condition === 'Rain' || condition === 'Drizzle') {
+    app.className = 'rain-bkg';
+    changeColors('white');
+  } else if (condition === 'Thunderstorm') {
+    app.className = 'thunder-bkg';
+    changeColors('white');
+  } else {
+    app.className = 'default-bkg';
+    changeColors('white');
+  }
+};
+
 // Show weather screen
 const showWeatherScreen = (weatherData) => {
   weather.classList.remove('hidden');
@@ -82,6 +127,7 @@ const showWeatherScreen = (weatherData) => {
   time.classList.remove('invisible');
 
   showWeatherData(weatherData);
+  changeBackground(weatherData);
 };
 
 const showConvertedTemps = (e) => {
@@ -138,6 +184,7 @@ const showLoader = () => {
   search.classList.add('invisible');
   tempConversion.classList.add('invisible');
   time.classList.add('invisible');
+  app.className = 'default-bkg';
 };
 
 // Display errors
@@ -148,6 +195,7 @@ const showErrorScreen = (err) => {
   search.classList.remove('invisible');
   tempConversion.classList.add('invisible');
   time.classList.add('invisible');
+  app.className = 'default-bkg';
 
   errorText.textContent = err;
 };

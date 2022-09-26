@@ -1,11 +1,16 @@
-$search-form-color: rgb(198, 196, 216);
-$text-color: rgb(245, 237, 237);
+$search-form-color: rgb(242, 234, 234);
 
 @mixin layout {
   height: 100%;
   display: flex;
   justify-content: center;
   padding: 2rem;
+}
+
+:root {
+  --nav-color: rgb(0, 0, 0);
+  --overview-color: rgb(0, 0, 0);
+  --details-color: rgb(0, 0, 0);
 }
 
 *,
@@ -34,7 +39,7 @@ body {
   background-color: rgb(0, 0, 0);
 }
 
-.app {
+#app {
   height: 100%;
   width: 40%;
   display: grid;
@@ -55,6 +60,7 @@ body {
   justify-items: center;
   padding: 1rem 2rem;
   font-size: 1.5rem;
+  color: var(--nav-color);
 }
 
 // SEARCH FORM
@@ -144,6 +150,7 @@ body {
   padding: 2rem 2rem 4rem 2rem;
 
   &-overview {
+    color: var(--overview-color);
     display: grid;
     grid-template-columns: 25rem min-content;
     grid-template-rows: min-content min-content;
@@ -170,6 +177,7 @@ body {
   }
 
   &-details {
+    color: var(--details-color);
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     border-radius: 1.5rem;
@@ -222,6 +230,47 @@ body {
     height: 8rem;
     margin-top: 8rem;
   }
+}
+
+// CLASSES FOR BACKGROUND IMAGES
+.default-bkg {
+  background-image: url('../src/img/background.jpg');
+}
+
+.clear-day-bkg {
+  background-image: url('../src/img/clear-day.jpg');
+}
+
+.clear-night-bkg {
+  background-image: url('../src/img/clear-night.jpg');
+}
+
+.clouds-day-bkg {
+  background-image: url('../src/img/cloud-day.jpg');
+}
+
+.clouds-night-bkg {
+  background-image: url('../src/img/cloud-night.jpg');
+}
+
+.mist-bkg {
+  background-image: url('../src/img/mist.jpg');
+}
+
+.snow-day-bkg {
+  background-image: url('../src/img/snow-day.jpg');
+}
+
+.snow-night-bkg {
+  background-image: url('../src/img/snow-night.jpg');
+}
+
+.rain-bkg {
+  background-image: url('../src/img/rain.jpg');
+}
+
+.thunder-bkg {
+  background-image: url('../src/img/thunder.jpg');
 }
 
 // CLASSES TO HIDE ELEMENTS

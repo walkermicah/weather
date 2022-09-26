@@ -21,4 +21,10 @@ const convertToF = (tempsToConvert) =>
       )}°`
   );
 
-export { convertToC, convertToF };
+const isNight = (time) => {
+  const date = new Date(time * 1000);
+  const hours = date.getUTCHours();
+  return hours >= 20 || hours <= 6;
+};
+
+export { convertToC, convertToF, isNight };
