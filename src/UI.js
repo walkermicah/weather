@@ -5,11 +5,13 @@ const currentTemp = document.querySelector('.weather-overview-temp');
 const description = document.querySelector('.weather-overview-description');
 const error = document.querySelector('.error');
 const errorText = document.querySelector('.error-notification-text');
+const formAlert = document.getElementById('search-form-alert');
 const feelsLikeTemp = document.querySelector('.feelslike-temp');
 const highTemp = document.querySelector('.high-temp');
 const loader = document.querySelector('.loader');
 const lowTemp = document.querySelector('.low-temp');
 const search = document.querySelector('.search-form');
+const searchInput = document.querySelector('.search-form-input');
 const tempConversion = document.querySelector('.temp-conversion');
 const time = document.querySelector('.time');
 const weather = document.querySelector('.weather');
@@ -91,6 +93,22 @@ const showConvertedTemps = (e) => {
   }
 };
 
+// show alerts if form input invalid
+const showFormAlert = () => {
+  if (searchInput.validity.valueMissing) {
+    formAlert.className = 'alert-visible';
+    formAlert.textContent = 'Please enter a city!';
+  }
+  if (searchInput.validity.tooShort) {
+    formAlert.className = 'alert-visible';
+    formAlert.textContent = 'City name must be longer than 2 letters!';
+  }
+  if (searchInput.validity.patternMismatch) {
+    formAlert.className = 'alert-visible';
+    formAlert.textContent = 'City name can only contain letters!';
+  }
+};
+
 // Show loader while waiting for location and weather data
 const showLoader = () => {
   loader.classList.remove('hidden');
@@ -113,4 +131,10 @@ const showErrorScreen = (err) => {
   errorText.textContent = err;
 };
 
-export { showConvertedTemps, showWeatherScreen, showErrorScreen, showLoader };
+export {
+  showConvertedTemps,
+  showWeatherScreen,
+  showErrorScreen,
+  showLoader,
+  showFormAlert,
+};

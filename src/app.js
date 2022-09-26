@@ -1,6 +1,7 @@
 import './style.scss';
 import * as UI from './UI';
 
+const formAlert = document.getElementById('search-form-alert');
 const searchBtn = document.querySelector('.search-form-btn');
 const searchForm = document.querySelector('.search-form');
 const searchInput = document.querySelector('.search-form-input');
@@ -22,10 +23,15 @@ const getWeatherByCity = async (city) => {
   }
 };
 
-// When user searches for a location:
-// validate input, get data for that location and display it
+// When user searches for a location: validate input,
+// get data for that location and display it
 const weatherSearch = async (e) => {
   e.preventDefault();
+  if (!searchInput.checkValidity()) {
+    UI.showFormAlert();
+    return;
+  }
+  formAlert.className = 'invisible';
   const city = searchInput.value;
   const weatherData = await getWeatherByCity(city);
   if (weatherData.cod === '404') {
@@ -82,6 +88,7 @@ const init = async () => {
     }
   }
   searchBtn.addEventListener('click', weatherSearch);
+  // searchForm.addEventListener('submit', validateSearch);
   tempConversion.addEventListener('click', (e) => {
     UI.showConvertedTemps(e);
   });

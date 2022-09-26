@@ -17,29 +17,39 @@
                 12:30 PM
             </div>
 
-          <form class="search-form" novalidate>
-            <label for="city" class="search-form-label">
-              <input
-                type="text"
-                class="search-form-input"
-                id="city"
-                placeholder="Enter a city"
-                required
-              />
+            <div class="form">
+              <form class="search-form" novalidate>
+                <label for="city" class="search-form-label">
+                  <input
+                    type="text"
+                    class="search-form-input"
+                    id="city"
+                    placeholder="Enter a city"
+                    required
+                    minlength="2"
+                    pattern="[a-zA-Z]+"
+                  />
+                  <!-- <span
+                    class="form-valid"
+                    id="search-form-alert"
+                    aria-live="polite"
+                  ></span> -->
+                </label>
+                <button class="search-form-btn">
+                  <img
+                    src="img/search.svg"
+                    alt="search icon"
+                    class="search-form-icon"
+                  />
+                </button>
+              </form>
               <span
-                class="error"
-                id="search-form-field-alert"
-                aria-live="polite"
-              ></span>
-            </label>
-            <button class="search-form-btn">
-              <img
-                src="img/search.svg"
-                alt="search icon"
-                class="search-form-icon"
-              />
-            </button>
-          </form>
+              class="invisible"
+              id="search-form-alert"
+              aria-live="polite"
+            ></span>
+            </div>
+          
 
           <div class="temp-conversion">
             <span class="temp-conversion-c temp-conversion-active">&#8451</span>
@@ -47,25 +57,25 @@
             <span class="temp-conversion-f">&#8457</span>
           </div>
         </div>
-
+        
         <div class="weather">
           <div class="weather-overview">
-            <div class="weather-overview-location">TORONTO</div>
-            <div class="weather-overview-temp">25&#8451</div>
-            <div class="weather-overview-description">CLEAR SKIES</div>
+            <div class="weather-overview-location"></div>
+            <div class="weather-overview-temp"></div>
+            <div class="weather-overview-description"></div>
           </div>
         
           <div class="weather-details">
             <div class="weather-details-item">
-                <div class="weather-details-item-temp low-temp">15&#8451</div>
+                <div class="weather-details-item-temp low-temp"></div>
                 <div class="weather-details-item-title">LOW</div>
             </div>
             <div class="weather-details-item">
-                <div class="weather-details-item-temp high-temp">28&#8451</div>
+                <div class="weather-details-item-temp high-temp"></div>
                 <div class="weather-details-item-title">HIGH</div>
             </div>
             <div class="weather-details-item">
-                <div class="weather-details-item-temp feelslike-temp">27&#8451</div>
+                <div class="weather-details-item-temp feelslike-temp"></div>
                 <div class="weather-details-item-title">FEELS LIKE</div>
             </div>
           </div>
@@ -74,7 +84,7 @@
         <div class="error hidden">
             <div class="error-notification">
                 <img src="img/location-error.svg" alt="location error" class="error-notification-icon">
-                <p class="error-notification-text">Could not get your location. <br>Try searching for a city.</p>
+                <p class="error-notification-text"></p>
             </div>
         </div>
 

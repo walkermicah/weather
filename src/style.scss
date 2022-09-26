@@ -38,7 +38,7 @@ body {
   height: 100%;
   width: 40%;
   display: grid;
-  grid-template-rows: 8rem 1fr;
+  grid-template-rows: 12rem 1fr;
   align-items: start;
   background-color: white;
   // background-image: url('../src/img/clear-day.jpg');
@@ -51,13 +51,19 @@ body {
 .nav {
   display: grid;
   grid-template-columns: max-content 1fr max-content;
-  align-items: center;
+  align-items: start;
   justify-items: center;
   padding: 1rem 2rem;
   font-size: 1.5rem;
 }
 
 // SEARCH FORM
+.form {
+  display: grid;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
 .search-form {
   justify-self: center;
   display: flex;
@@ -70,6 +76,7 @@ body {
   &-label {
     width: 100%;
     display: flex;
+    flex-direction: column;
     padding: 0.5rem;
   }
 
@@ -96,6 +103,24 @@ body {
   }
 }
 
+// FORM VALIDATION ALERTS
+#search-form-alert {
+  padding: 0.5rem;
+  height: 2.5rem;
+  width: 100%;
+  font-size: 80%;
+  border-radius: 3px;
+  color: white;
+  background-color: #900;
+  display: flex;
+  justify-content: center;
+  transition: opacity 0.2s ease;
+}
+
+.alert-visible {
+  opacity: 1;
+}
+
 //TEMP CONVERSION
 .temp-conversion {
   cursor: default;
@@ -120,8 +145,8 @@ body {
 
   &-overview {
     display: grid;
-    grid-template-columns: max-content max-content;
-    grid-template-rows: max-content max-content;
+    grid-template-columns: 25rem min-content;
+    grid-template-rows: min-content min-content;
     grid-template-areas:
       'location description'
       'temp description';
@@ -140,6 +165,7 @@ body {
       font-size: 3rem;
       writing-mode: vertical-rl;
       text-orientation: mixed;
+      align-self: center;
     }
   }
 
@@ -177,6 +203,7 @@ body {
 
     &-text {
       font-size: 2.5rem;
+      white-space: pre-line;
     }
 
     &-icon {
@@ -197,16 +224,7 @@ body {
   }
 }
 
-// CLASSES TO CHANGE BACKGROUND IMAGE
-.background {
-  background-image: url('../src/img/background.jpg');
-}
-
-.clear-day {
-  background-image: url('../src/img/clear-day.jpg');
-}
-
-// CLASS TO HIDE ELEMENTS
+// CLASSES TO HIDE ELEMENTS
 .invisible {
   opacity: 0;
   pointer-events: none;
